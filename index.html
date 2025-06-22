@@ -1,42 +1,567 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My AI Projects</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Michał Heit - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My GitHub Portfolio</h1>
-        <p>Your hub for AI and machine learning projects</p>
-        <nav>
-            <a href="#projects">Projects</a>
-            <a href="#cv">CV</a>
-        </nav>
-    </header>
+    <!-- Particles Background -->
+    <div id="particles-background"></div>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
-    <section id="projects" class="section">
-        <h2>Projects</h2>
-        <div class="project-list">
-            <!-- Example Project Block (repeat this for each project) -->
-            <div class="project-item">
-                <h3>Project Title 1</h3>
-                <p>A brief description of the project, outlining key features or technology used.</p>
-                <a href="https://github.com/yourusername/project1" class="button">View Repository</a>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-content">
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <div class="avatar-container">
+                    <img src="https://pliki.optyczne.pl/NZfc/sample/DSC_1439_iso400.JPG" alt="Michał Heit" class="avatar">
+                    <div class="avatar-glow"></div>
+                </div>
+                <h1 class="profile-name">Michał Heit</h1>
+                <p class="profile-title">AI Engineer</p>
+                <p class="profile-subtitle">To be filled</p>
             </div>
-            <!-- More projects can be added in the same format -->
+
+            <!-- Specialization -->
+            <div class="sidebar-section">
+                <h3 class="section-title">Specjalizacja</h3>
+                <div class="specialization-list">
+                    <span class="specialization-tag">Marketing Specialist</span>
+                    <span class="specialization-tag">Frontend Development</span>
+                    <span class="specialization-tag">Full Stack</span>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="sidebar-section">
+                <h3 class="section-title">Lokalizacja</h3>
+                <p class="location">
+                    <i class="Ss fa-map-marker-alt"></i>
+                    Warsaw, Poland
+                </p>
+            </div>
+
+            <!-- Social Links -->
+            <div class="sidebar-section">
+                <h3 class="section-title">Social Media</h3>
+                <div class="social-links">
+                    <a href="https://github.com/jumpincrane" target="_blank" class="social-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/michalheit" target="_blank" class="social-link" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://instagram.com/michal_heit" target="_blank" class="social-link" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact Button -->
+            <div class="sidebar-contact">
+                <a href="#contact" class="contact-btn">
+                    <i class="fas fa-envelope"></i>
+                    Kontakt
+                </a>
+            </div>
         </div>
-    </section>
+    </aside>
 
-    <section id="cv" class="section">
-        <h2>Curriculum Vitae</h2>
-        <p>Download my CV for more information on my background, skills, and experience.</p>
-        <a href="cv.pdf" download class="button">Download CV</a>
-    </section>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="cyber-text">Cześć, jestem</span>
+                        <span class="cyber-name">Michał Heit</span>
+                    </h1>
+                    <p class="hero-description">
+                        I have a keen analytical mind that always seeks to understand the causes and effects of various actions.
+                        This led me to develop a passion for data and finding patterns in it that can reveal useful insights.
+                        My main goal in work is to transform business ideas into ML/AI solutions that can leverage data to achieve desired outcomes.
+                        I am adept at handling complex and innovative projects by breaking them down into manageable components.
+                        I enjoy solving challenging machine learning and deep learning problems, particularly in the domains of computer vision and recommender systems.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#portfolio" class="btn btn-primary">Zobacz Portfolio</a>
+                        <a href="#contact" class="btn btn-outline">Skontaktuj się</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="cyber-grid"></div>
+                </div>
+            </div>
+        </section>
 
-    <footer>
-        <p>&copy; 2024 Michał Heit | Connect with me on <a href="https://www.linkedin.com/in/michalheit/" target="_blank">Linkedin</a></p>
-    </footer>
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="portfolio-section">
+            <div class="container">
+                <h2 class="section-title-main">Portfolio</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-card" data-project="1">
+                        <div class="portfolio-image">
+                            <img src="https://pliki.optyczne.pl/NZfc/sample/DSC_1439_iso400.JPG" alt="CyberTech Dashboard">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-actions">
+                                    <button class="portfolio-btn">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="portfolio-btn">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">CyberTech Dashboard</h3>
+                            <p class="portfolio-description">Nowoczesna aplikacja dashboard z wizualizacją danych w czasie rzeczywistym</p>
+                            <div class="portfolio-tech">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">TypeScript</span>
+                                <span class="tech-tag">D3.js</span>
+                                <span class="tech-tag">Node.js</span>
+                            </div>
+                            <div class="portfolio-status">
+                                <span class="status status--success">Ukończony</span>
+                                <span class="portfolio-year">2024</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card" data-project="2">
+                        <div class="portfolio-image">
+                            <img src="https://pliki.optyczne.pl/NZfc/sample/DSC_1439_iso400.JPG" alt="AI Marketing Platform">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-actions">
+                                    <button class="portfolio-btn">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="portfolio-btn">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">AI Marketing Platform</h3>
+                            <p class="portfolio-description">Inteligentna platforma automatyzacji marketingu z wglądem opartym na AI</p>
+                            <div class="portfolio-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                            </div>
+                            <div class="portfolio-status">
+                                <span class="status status--warning">W trakcie</span>
+                                <span class="portfolio-year">2025</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card" data-project="3">
+                        <div class="portfolio-image">
+                            <img src="https://pliki.optyczne.pl/NZfc/sample/DSC_1439_iso400.JPG" alt="Blockchain Portfolio Tracker">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-actions">
+                                    <button class="portfolio-btn">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="portfolio-btn">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Blockchain Portfolio Tracker</h3>
+                            <p class="portfolio-description">Zarządzanie portfolio kryptowalut z zaawansowaną analityką</p>
+                            <div class="portfolio-tech">
+                                <span class="tech-tag">Vue.js</span>
+                                <span class="tech-tag">Web3.js</span>
+                                <span class="tech-tag">Solidity</span>
+                                <span class="tech-tag">MongoDB</span>
+                            </div>
+                            <div class="portfolio-status">
+                                <span class="status status--success">Ukończony</span>
+                                <span class="portfolio-year">2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="section-title-main">O mnie</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>
+                            Jestem pasjonatem technologii z wieloletnim doświadczeniem w tworzeniu nowoczesnych aplikacji webowych. 
+                            Specjalizuję się w technologiach frontend i backend, z szczególnym uwzględnieniem React, Node.js i Python.
+                        </p>
+                        <p>
+                            Moją misją jest łączenie kreatywności z funkcjonalnością, tworząc rozwiązania, które nie tylko wyglądają dobrze, 
+                            ale także zapewniają wyjątkowe doświadczenie użytkownika.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Education Section -->
+        <section id="experience" class="experience-section">
+            <div class="container">
+                <h2 class="section-title-main">Doświadczenie & Edukacja</h2>
+                
+                <div class="timeline-container">
+                    <div class="timeline">
+                        <div class="timeline-item experience" data-aos="fade-up">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h3 class="timeline-title">Senior AI Engineer</h3>
+                                <p class="timeline-company">TechCorp Warsaw</p>
+                                <p class="timeline-period">2023 - Obecnie</p>
+                                <ul class="timeline-responsibilities">
+                                    <li>Kierowanie rozwojem aplikacji webowych enterprise</li>
+                                    <li>Implementacja nowoczesnych architektur frontend</li>
+                                    <li>Mentoring junior developerów</li>
+                                    <li>Optymalizacja wydajności aplikacji</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item experience" data-aos="fade-up">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h3 class="timeline-title">Full Stack Developer</h3>
+                                <p class="timeline-company">Digital Agency Krakow</p>
+                                <p class="timeline-period">2021 - 2023</p>
+                                <ul class="timeline-responsibilities">
+                                    <li>Rozwój responsywnych aplikacji webowych</li>
+                                    <li>Integracja API trzecich stron</li>
+                                    <li>Współpraca z zespołami design</li>
+                                    <li>Implementacja pipeline CI/CD</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item education" data-aos="fade-up">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h3 class="timeline-title">Magister Informatyki</h3>
+                                <p class="timeline-company">Politechnika Warszawska</p>
+                                <p class="timeline-period">2022-2024</p>
+                                <p class="timeline-specialization">Inżynieria Oprogramowania & AI</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item education" data-aos="fade-up">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h3 class="timeline-title">Licencjat Technologii Informacyjnych</h3>
+                                <p class="timeline-company">Polsko-Japońska Akademia Technik Komputerowych</p>
+                                <p class="timeline-period">2018-2022</p>
+                                <p class="timeline-specialization">Web Development</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section">
+            <div class="container">
+                <h2 class="section-title-main">Umiejętności & Narzędzia</h2>
+                
+                <div class="skills-categories">
+                    <div class="skills-category">
+                        <h3 class="skills-category-title">Frontend</h3>
+                        <div class="skills-list">
+                            <div class="skill-item" data-skill="95">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-react skill-icon"></i>
+                                        React
+                                    </span>
+                                    <span class="skill-percentage">95%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="95"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="90">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-js-square skill-icon"></i>
+                                        TypeScript
+                                    </span>
+                                    <span class="skill-percentage">90%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="90"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="85">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-vuejs skill-icon"></i>
+                                        Vue.js
+                                    </span>
+                                    <span class="skill-percentage">85%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="85"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="92">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-css3-alt skill-icon"></i>
+                                        CSS/SCSS
+                                    </span>
+                                    <span class="skill-percentage">92%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="92"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="93">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-js-square skill-icon"></i>
+                                        JavaScript
+                                    </span>
+                                    <span class="skill-percentage">93%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="93"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skills-category">
+                        <h3 class="skills-category-title">Backend</h3>
+                        <div class="skills-list">
+                            <div class="skill-item" data-skill="88">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-node-js skill-icon"></i>
+                                        Node.js
+                                    </span>
+                                    <span class="skill-percentage">88%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="88"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="85">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-python skill-icon"></i>
+                                        Python
+                                    </span>
+                                    <span class="skill-percentage">85%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="85"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="80">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fas fa-server skill-icon"></i>
+                                        FastAPI
+                                    </span>
+                                    <span class="skill-percentage">80%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="80"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="75">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fas fa-database skill-icon"></i>
+                                        PostgreSQL
+                                    </span>
+                                    <span class="skill-percentage">75%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="75"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="70">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fas fa-database skill-icon"></i>
+                                        MongoDB
+                                    </span>
+                                    <span class="skill-percentage">70%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="70"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skills-category">
+                        <h3 class="skills-category-title">Narzędzia</h3>
+                        <div class="skills-list">
+                            <div class="skill-item" data-skill="95">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-git-alt skill-icon"></i>
+                                        Git
+                                    </span>
+                                    <span class="skill-percentage">95%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="95"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="85">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-docker skill-icon"></i>
+                                        Docker
+                                    </span>
+                                    <span class="skill-percentage">85%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="85"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="78">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-aws skill-icon"></i>
+                                        AWS
+                                    </span>
+                                    <span class="skill-percentage">78%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="78"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="75">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-figma skill-icon"></i>
+                                        Figma
+                                    </span>
+                                    <span class="skill-percentage">75%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="75"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item" data-skill="80">
+                                <div class="skill-info">
+                                    <span class="skill-name">
+                                        <i class="fab fa-jira skill-icon"></i>
+                                        Jira
+                                    </span>
+                                    <span class="skill-percentage">80%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="skill-progress-bar" data-width="80"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2 class="section-title-main">Kontakt</h2>
+                
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Skontaktuj się ze mną</h3>
+                        <p>Szukasz współpracy? Masz ciekawy projekt? Napisz do mnie!</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>michal.heit.contact@gmail.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+48 123 456 789</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Remote, Poland</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Imię i Nazwisko</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Temat</label>
+                            <input type="text" id="subject" name="subject" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Wiadomość</label>
+                            <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn--full-width">
+                            <i class="fas fa-paper-plane"></i>
+                            Wyślij Wiadomość
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
 </body>
 </html>

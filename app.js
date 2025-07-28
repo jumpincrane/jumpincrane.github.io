@@ -74,7 +74,7 @@ const portfolioData = {
       }
     ],
     techStack: {
-      ml_and_ai: ["PyTorch", "Scikit-learn", "XGBoost", "MLflow"],
+      ml_and_ai: ["PyTorch", "Scikit-learn", "XGBoost", "MLflow", "LangChain", "LangGraph", "LangSmith"],
       cloud_and_infrastructure: ["Azure ML", "Azure AI Services", "Azure Function/Web App", "Azure Data Factory", "Databricks", "Docker"],
       data_engineering: ["Pandas", "NumPy", "Apache Spark"],
       software_development: ["Python", "C++", "PyTest", "FastAPI", "Git", "Azure Repos"],

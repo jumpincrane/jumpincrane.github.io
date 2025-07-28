@@ -1629,3 +1629,33 @@ body {
     padding-left: 2rem;
   }
 }
+
+/* TO TEST AND MAY BE TO DELETE ALL BELOW */
+/* Mobile responsiveness fixes */
+@media (max-width: 768px) {
+  .sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+  }
+  
+  .sidebar.active {
+      transform: translateX(0);
+  }
+  
+  .main-content {
+      margin-left: 0;
+      width: 100%;
+  }
+  
+  /* Ensure hero section is first and visible */
+  .hero-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+  }}

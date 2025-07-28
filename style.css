@@ -1631,31 +1631,89 @@ body {
 }
 
 /* TO TEST AND MAY BE TO DELETE ALL BELOW */
-/* Mobile responsiveness fixes */
+/* Mobile responsiveness - pełna wysokość sidebara */
 @media (max-width: 768px) {
   .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+      height: 100vh; /* Pełna wysokość viewportu */
       transform: translateX(-100%);
       transition: transform 0.3s ease;
       z-index: 1000;
+      overflow-y: auto; /* Scrollowanie wewnątrz sidebara jeśli potrzebne */
   }
   
   .sidebar.active {
       transform: translateX(0);
   }
   
+  /* Sidebar content - pełna wysokość */
+  .sidebar-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0;
+  }
+  
+  /* Profile section na górze */
+  .profile-section {
+      flex-shrink: 0; /* Nie kurczy się */
+      margin-bottom: 30px;
+      padding: 0 20px;
+  }
+  
+  /* Menu nawigacyjne */
+  .nav-menu {
+      flex: 1; /* Zajmuje dostępną przestrzeń */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 20px;
+  }
+  
+  .nav-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+  }
+  
+  .nav-menu li {
+      margin-bottom: 15px;
+  }
+  
+  .nav-menu a {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      color: #e0e0e0;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+  }
+  
+  .nav-menu a:hover,
+  .nav-menu a.active {
+      background: rgba(74, 144, 226, 0.2);
+      color: #4a90e2;
+  }
+  
+  /* Main content bez marginesu na mobile */
   .main-content {
       margin-left: 0;
       width: 100%;
+      min-height: 100vh;
   }
   
-  /* Ensure hero section is first and visible */
+  /* Hero section jako pierwszy ekran */
   .hero-section {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 60px 20px 20px;
       position: relative;
-      z-index: 1;
-  }}
+  }
+}

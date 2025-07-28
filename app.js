@@ -1,621 +1,562 @@
-// Portfolio Website JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
-    initMobileMenu();
-    initSmoothScrolling();
-    initSkillBars();
-    initScrollAnimations();
-    initPortfolioCards();
-    initContactForm();
-    initParticleBackground();
+// AI/ML Portfolio JavaScript
 
-    // Mobile Menu Toggle - Fixed
-    function initMobileMenu() {
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const sidebar = document.getElementById('sidebar');
+// Data from the provided JSON
+const portfolioData = {
+    profile: {
+      name: "Michał Heit",
+      title: "AI/ML Specialist",
+      description: "AI and Machine Learning specialist with 5+ years of experience in developing advanced ML models and AI solutions for businesses."
+    },
+    projects: [
+      {
+        id: 1,
+        title: "Predykcyjny model sprzedaży",
+        description: "System predykcji sprzedaży wykorzystujący ensemble metody uczenia maszynowego. Zwiększenie dokładności prognoz o 35%.",
+        fullDescription: "Zaawansowany system predykcji sprzedaży wykorzystujący algorytmy uczenia maszynowego typu ensemble. Projekt obejmuje zbieranie danych z różnych źródeł, preprocessing, feature engineering i deployment modelu w chmurze AWS. Osiągnięta dokładność predykcji wynosi 95% na zbiorze testowym, co przyczyniło się do zwiększenia efektywności biznesowej o 35%.",
+        technologies: ["Python", "TensorFlow", "XGBoost"],
+        github: "https://github.com/jankowalski/sales-prediction"
+      },
+      {
+        id: 2,
+        title: "System rekomendacji",
+        description: "Zaawansowany system rekomendacji produktów oparty na collaborative filtering i deep learning.",
+        fullDescription: "Kompleksowy system rekomendacji wykorzystujący techniki collaborative filtering i deep learning do generowania personalizowanych rekomendacji produktów. System przetwarza dane użytkowników w czasie rzeczywistym i dostosowuje rekomendacje na podstawie zachowań i preferencji. Implementacja obejmuje modele hybrydowe łączące różne podejścia do rekomendacji.",
+        technologies: ["PyTorch", "Redis", "FastAPI"],
+        github: "https://github.com/jankowalski/recommendation-system"
+      },
+      {
+        id: 3,
+        title: "Analiza sentymentu",
+        description: "Model NLP do analizy sentymentu opinii klientów z wykorzystaniem transformerów.",
+        fullDescription: "Zaawansowany model NLP wykorzystujący transformery (BERT) do analizy sentymentu opinii klientów. System przetwarza teksty w czasie rzeczywistym, klasyfikuje sentyment i identyfikuje kluczowe tematy. Implementacja obejmuje fine-tuning modeli pre-trained na specyficznych danych biznesowych, co pozwoliło osiągnąć dokładność 94%.",
+        technologies: ["BERT", "Hugging Face", "Docker"],
+        github: "https://github.com/jankowalski/sentiment-analysis"
+      }
+    ],
+    about: "Jestem doświadczonym specjalistą AI/ML z pasją do rozwiązywania złożonych problemów biznesowych za pomocą uczenia maszynowego. Specjalizuję się w deep learning, NLP i computer vision. W wolnym czasie eksperymentuję z najnowszymi technikami ML i uczestniczę w projektach open source.",
+    experience: [
+      {
+        position: "ML Engineer",
+        company: "TIDK",
+        period: "01/2023 - 11/2024",
+        description: `- Developed ETL pipelines in Databricks.<br>
+                      - Created modules to anonymize data and a mechanism to change SQL procedures to PySpark with writes to Data Lake instead of SQL database.<br>
+                      - Implemented and deployed state-of-the-art models.<br>
+                      - Leading NCBR "Sensitivity" research project from the conceptual solutions standpoint, in the field of machine learning and deep learning, designing the architecture and implementing pipelines on the Databricks platform.<br>
+                      - Co-lead the “Intelligent Culinary Planner”, implemented solutions and deployed models in Azure ML.`,
+        type: "work"
+      },
+      {
+        position: "Junior ML Engineer",
+        company: "TIDK",
+        period: "03/2022 - 12/2022",
+        description: `- Orchestrated the entire architectural framework and solution for the “Intelligent Culinary Planner” project.<br>
+                      - Designed and implemented predictive models for detecting anomalies and forecasting timeseries.<br>
+                      - Drew up comprehensive reports highlighting the milestones attained in grant projects.<br>
+                      - Reimplemented algorithms leveraging JAX, resulting in a 1000% acceleration in execution efficiency.`,
+        type: "work"
+      }
+    ],
+    education: [
+      {
+        degree: "Master of Science",
+        school: "Poznan University of Technology",
+        period: "03/2021 - 06/2022",
+        specialization: "Robots and Autonomous Systems (IT department) <br> Graduate work: “Implementation of reverse image search for medical“",
+        type: "education"
+      },
+      {
+        degree: "Bachelor of Engineering",
+        school: "Poznan University of Technology",
+        period: "10/2017 - 02/2021",
+        specialization: "Automatic and Robotics (IT department)",
+        type: "education"
+      }
+    ],
+    techStack: {
+      ml_and_ai: ["PyTorch", "Scikit-learn", "XGBoost", "MLflow"],
+      cloud_and_infrastructure: ["Azure ML", "Azure AI Services", "Azure Function/Web App", "Azure Data Factory", "Databricks", "Docker"],
+      data_engineering: ["Pandas", "NumPy", "Apache Spark"],
+      software_development: ["Python", "C++", "PyTest", "FastAPI", "Git", "Azure Repos"],
+      databases: ["MS SQL", "Redis", "Neo4j", "Azure Data Lake Storage"],
+      tools: ["Jupyter Notebook", "Plotly", "Unix-like OS", "VS Code"]
+    },
+    contact: {
+      email: "michal.heit.contact@gmail.com",
+      phone: "+48 xxx xxx xxx",
+      linkedin: "linkedin.com/in/michalheit",
+      github: "github.com/jumpincrane"
+    }
+  };
+  
+  class Portfolio {
+    constructor() {
+      this.currentSection = 'home';
+      this.init();
+    }
+  
+    init() {
+      this.setupNavigation();
+      this.setupScrollObserver();
+      this.generateProjects();
+      this.generateTimeline();
+      this.generateTechStack();
+      this.setupModal();
+      this.setupContactForm();
+      this.addScrollAnimations();
+    }
+  
+    // Navigation setup
+    setupNavigation() {
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const targetId = link.getAttribute('href').substring(1);
+          this.scrollToSection(targetId);
+          this.setActiveNav(link);
+        });
+      });
+  
+      // Setup hero button navigation
+      const heroButton = document.querySelector('.hero-actions a[href="#portfolio"]');
+      if (heroButton) {
+        heroButton.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          this.scrollToSection('portfolio');
+        });
+      }
+    }
+  
+    scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        const offsetTop = section.offsetTop;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
         
-        if (mobileMenuToggle && sidebar) {
-            // Ensure the toggle is visible and working
-            mobileMenuToggle.style.display = 'flex';
-            mobileMenuToggle.style.flexDirection = 'column';
-            
-            mobileMenuToggle.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevent event bubbling
-                sidebar.classList.toggle('active');
-                this.classList.toggle('active');
-                
-                // Force repaint to ensure styles are applied
-                sidebar.offsetHeight;
-            });
-
-            // Close sidebar when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!sidebar.contains(e.target) && !mobileMenuToggle.contains(e.target) && sidebar.classList.contains('active')) {
-                    sidebar.classList.remove('active');
-                    mobileMenuToggle.classList.remove('active');
-                }
-            });
-
-            // Close sidebar on escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && sidebar.classList.contains('active')) {
-                    sidebar.classList.remove('active');
-                    mobileMenuToggle.classList.remove('active');
-                }
-            });
-            
-            // Add additional class to body when menu is active
-            mobileMenuToggle.addEventListener('click', function() {
-                document.body.classList.toggle('menu-active');
-            });
+        // Update URL without causing page reload
+        if (history.pushState) {
+          history.pushState(null, null, `#${sectionId}`);
         }
+      }
     }
-
-    // Smooth Scrolling Navigation
-    function initSmoothScrolling() {
-        // Handle navigation links
-        const navLinks = document.querySelectorAll('a[href^="#"]');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
-                if (targetSection) {
-                    const headerOffset = 20;
-                    const elementPosition = targetSection.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-
-                    // Close mobile menu if open
-                    const sidebar = document.getElementById('sidebar');
-                    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-                    if (sidebar && mobileMenuToggle && sidebar.classList.contains('active')) {
-                        sidebar.classList.remove('active');
-                        mobileMenuToggle.classList.remove('active');
-                        document.body.classList.remove('menu-active');
-                    }
-                }
-            });
-        });
+  
+    setActiveNav(activeLink) {
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      activeLink.classList.add('active');
     }
-
-    // Animated Skill Progress Bars
-    function initSkillBars() {
-        const skillItems = document.querySelectorAll('.skill-item');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const skillItem = entry.target;
-                    const skillBar = skillItem.querySelector('.skill-progress-bar');
-                    const skillWidth = skillItem.getAttribute('data-skill');
-                    
-                    // Animate progress bar
-                    setTimeout(() => {
-                        if (skillBar) {
-                            skillBar.style.width = skillWidth + '%';
-                        }
-                    }, 200);
-                    
-                    // Animate percentage counter
-                    const percentageElement = skillItem.querySelector('.skill-percentage');
-                    if (percentageElement) {
-                        animateCounter(percentageElement, 0, parseInt(skillWidth), 1500);
-                    }
-                    
-                    observer.unobserve(skillItem);
-                }
-            });
-        }, { threshold: 0.3 });
-
-        skillItems.forEach(item => {
-            observer.observe(item);
-        });
-    }
-
-    // Counter Animation
-    function animateCounter(element, start, end, duration) {
-        const startTime = performance.now();
-        
-        function updateCounter(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
+  
+    // Scroll observer for section visibility
+    setupScrollObserver() {
+      const sections = document.querySelectorAll('.section');
+      const navLinks = document.querySelectorAll('.nav-link');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
             
-            // Easing function
-            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-            const current = Math.floor(start + (end - start) * easeOutQuart);
-            
-            element.textContent = current + '%';
-            
-            if (progress < 1) {
-                requestAnimationFrame(updateCounter);
-            }
-        }
-        
-        requestAnimationFrame(updateCounter);
-    }
-
-    // Scroll-triggered Animations
-    function initScrollAnimations() {
-        const animateElements = document.querySelectorAll('.portfolio-card, .timeline-item, .skills-category');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target);
-                }
+            // Update active navigation
+            const sectionId = entry.target.id;
+            navLinks.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('data-section') === sectionId) {
+                link.classList.add('active');
+              }
             });
-        }, { threshold: 0.1 });
-
-        animateElements.forEach((element, index) => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(30px)';
-            element.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-            observer.observe(element);
+          }
         });
+      }, {
+        threshold: 0.3,
+        rootMargin: '-50px 0px'
+      });
+  
+      sections.forEach(section => {
+        observer.observe(section);
+      });
     }
-
-    // Portfolio Card Interactions
-    function initPortfolioCards() {
-        const portfolioCards = document.querySelectorAll('.portfolio-card');
-        
-        portfolioCards.forEach(card => {
-            // Add hover feedback
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = '';
-            });
-
-            // Handle portfolio buttons
-            const portfolioBtns = card.querySelectorAll('.portfolio-btn');
-            portfolioBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const icon = this.querySelector('i');
-                    
-                    if (icon.classList.contains('fa-eye')) {
-                        // Preview functionality
-                        showPortfolioPreview(card);
-                    } else if (icon.classList.contains('fa-external-link-alt')) {
-                        // External link functionality
-                        openPortfolioLink(card);
-                    }
-                });
-            });
+  
+    // Generate portfolio projects
+    generateProjects() {
+      const projectsGrid = document.getElementById('projectsGrid');
+      if (!projectsGrid) return;
+  
+      const projectsHTML = portfolioData.projects.map(project => `
+        <div class="project-card" data-aos="fade-up" data-aos-delay="${project.id * 100}">
+          <h3 class="project-title">${project.title}</h3>
+          <p class="project-description">${project.description}</p>
+          <div class="project-technologies">
+            ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+          </div>
+          <div class="project-actions">
+            <button class="btn btn-primary btn-small project-modal-btn" data-project-id="${project.id}">
+              Zobacz więcej
+            </button>
+            <a href="${project.github}" target="_blank" class="btn btn-secondary btn-small">
+              GitHub
+            </a>
+          </div>
+        </div>
+      `).join('');
+  
+      projectsGrid.innerHTML = projectsHTML;
+  
+      // Add event listeners to modal buttons after creating them
+      this.setupProjectModalButtons();
+    }
+  
+    setupProjectModalButtons() {
+      const modalButtons = document.querySelectorAll('.project-modal-btn');
+      modalButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const projectId = parseInt(button.getAttribute('data-project-id'));
+          this.openProjectModal(projectId);
         });
+      });
     }
-
-    // Portfolio Preview Modal
-    function showPortfolioPreview(card) {
-        const title = card.querySelector('.portfolio-title').textContent;
-        const description = card.querySelector('.portfolio-description').textContent;
-        const image = card.querySelector('.portfolio-image img').src;
-        
-        // Create modal overlay
-        const modal = document.createElement('div');
-        modal.className = 'portfolio-modal';
-        modal.innerHTML = `
-            <div class="modal-overlay">
-                <div class="modal-content">
-                    <button class="modal-close">&times;</button>
-                    <img src="${image}" alt="${title}" class="modal-image">
-                    <h3 class="modal-title">${title}</h3>
-                    <p class="modal-description">${description}</p>
-                </div>
+  
+    // Generate timeline for experience and education
+    generateTimeline() {
+      const timeline = document.getElementById('timeline');
+      if (!timeline) return;
+  
+      // Combine and sort all timeline items
+      const allItems = [
+        ...portfolioData.experience.map(item => ({ ...item, type: 'work' })),
+        ...portfolioData.education.map(item => ({ ...item, type: 'education' }))
+      ];
+  
+      const timelineHTML = allItems.map((item, index) => {
+        const isWork = item.type === 'work';
+        const title = isWork ? item.position : item.degree;
+        const subtitle = isWork ? item.company : item.school;
+        const description = item.description || (item.specialization ? `Specialization: ${item.specialization}` : '');
+  
+        return `
+          <div class="timeline-item" data-aos="fade-left" data-aos-delay="${index * 150}">
+            <div class="timeline-header">
+              <h4 class="timeline-title">${title}</h4>
+              <div class="timeline-company">${subtitle}</div>
+              <div class="timeline-period">${item.period}</div>
             </div>
+            ${description ? `<p class="timeline-description">${description}</p>` : ''}
+          </div>
         `;
+      }).join('');
+  
+      timeline.innerHTML = timelineHTML;
+    }
+  
+    // Generate tech stack
+    generateTechStack() {
+      const techStack = document.getElementById('techStack');
+      if (!techStack) return;
+  
+      const categories = [
+        { title: 'Machine Learning & AI', items: portfolioData.techStack.ml_and_ai },
+        { title: 'Cloud & Infrastructure', items: portfolioData.techStack.cloud_and_infrastructure },
+        { title: 'Data Engineering', items: portfolioData.techStack.data_engineering },
+        { title: 'Software Development', items: portfolioData.techStack.software_development },
+        { title: 'Databases', items: portfolioData.techStack.databases },
+        { title: 'Development Tools', items: portfolioData.techStack.tools }
+      ];
+  
+      const techStackHTML = categories.map((category, index) => `
+        <div class="tech-category" data-aos="fade-up" data-aos-delay="${index * 100}">
+          <h4 class="tech-category-title">${category.title}</h4>
+          <div class="tech-items">
+            ${category.items.map(item => `
+              <div class="tech-item">
+                <div class="tech-icon"></div>
+                <span>${item}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+  
+      techStack.innerHTML = techStackHTML;
+    }
+  
+    // Modal functionality
+    setupModal() {
+      const modal = document.getElementById('projectModal');
+      const backdrop = document.getElementById('modalBackdrop');
+      const closeBtn = document.getElementById('modalClose');
+  
+      if (!modal || !backdrop || !closeBtn) return;
+  
+      // Close modal events
+      backdrop.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.closeProjectModal();
+      });
+  
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.closeProjectModal();
+      });
+  
+      // Close on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          this.closeProjectModal();
+        }
+      });
+    }
+  
+    openProjectModal(projectId) {
+      const project = portfolioData.projects.find(p => p.id === projectId);
+      if (!project) return;
+  
+      const modal = document.getElementById('projectModal');
+      const title = document.getElementById('modalTitle');
+      const description = document.getElementById('modalDescription');
+      const technologies = document.getElementById('modalTechnologies');
+      const githubLink = document.getElementById('modalGithubLink');
+  
+      if (!modal || !title || !description || !technologies || !githubLink) return;
+  
+      title.textContent = project.title;
+      description.textContent = project.fullDescription;
+      technologies.innerHTML = project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
+      githubLink.href = project.github;
+  
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  
+    closeProjectModal() {
+      const modal = document.getElementById('projectModal');
+      if (!modal) return;
+      
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  
+    // Contact form handling
+    setupContactForm() {
+      const form = document.getElementById('contactForm');
+      if (!form) return;
+  
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.handleContactSubmit(form);
+      });
+  
+      // Fix form field event handling to prevent navigation issues
+      const formFields = form.querySelectorAll('input, textarea, button');
+      formFields.forEach(field => {
+        // Prevent form interactions from triggering navigation
+        field.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
         
-        document.body.appendChild(modal);
+        field.addEventListener('focus', (e) => {
+          e.stopPropagation();
+        });
+  
+        field.addEventListener('input', (e) => {
+          e.stopPropagation();
+        });
+  
+        field.addEventListener('keydown', (e) => {
+          e.stopPropagation();
+        });
+  
+        field.addEventListener('keyup', (e) => {
+          e.stopPropagation();
+        });
+      });
+  
+      // Prevent form wrapper from causing navigation
+      const formWrapper = document.querySelector('.contact-form-wrapper');
+      if (formWrapper) {
+        formWrapper.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+      }
+    }
+  
+    handleContactSubmit(form) {
+      const formData = new FormData(form);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        message: formData.get('message')
+      };
+  
+      // Simulate form submission
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      
+      submitBtn.textContent = 'Wysyłanie...';
+      submitBtn.disabled = true;
+  
+      setTimeout(() => {
+        submitBtn.textContent = 'Wiadomość wysłana!';
+        submitBtn.style.background = 'var(--color-ai-green)';
         
-        // Add modal styles
-        const modalStyles = `
-            .portfolio-modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(10, 15, 28, 0.9);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 9999;
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-            .modal-overlay {
-                background: var(--color-surface-elevated);
-                border: 1px solid var(--color-primary);
-                border-radius: 12px;
-                max-width: 600px;
-                width: 90%;
-                max-height: 80vh;
-                overflow-y: auto;
-                position: relative;
-            }
-            .modal-close {
-                position: absolute;
-                top: 10px;
-                right: 15px;
-                background: none;
-                border: none;
-                color: var(--color-primary);
-                font-size: 24px;
-                cursor: pointer;
-                z-index: 10;
-            }
-            .modal-image {
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-            }
-            .modal-content {
-                padding: 20px;
-            }
-            .modal-title {
-                color: var(--color-primary);
-                margin-bottom: 10px;
-            }
-            .modal-description {
-                color: var(--color-text-secondary);
-                line-height: 1.6;
-            }
-        `;
-        
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = modalStyles;
-        document.head.appendChild(styleSheet);
-        
-        // Show modal with delay for transition
         setTimeout(() => {
-            modal.style.opacity = '1';
-        }, 10);
-        
-        // Close modal functionality
-        const closeBtn = modal.querySelector('.modal-close');
-        
-        function closeModal() {
-            modal.style.opacity = '0';
-            setTimeout(() => {
-                if (document.body.contains(modal)) {
-                    document.body.removeChild(modal);
-                }
-                if (document.head.contains(styleSheet)) {
-                    document.head.removeChild(styleSheet);
-                }
-            }, 300);
-        }
-        
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-        
-        document.addEventListener('keydown', function modalKeyHandler(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-                document.removeEventListener('keydown', modalKeyHandler);
-            }
-        });
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          submitBtn.style.background = '';
+          form.reset();
+        }, 3000);
+      }, 1500);
     }
-
-    // Open Portfolio Link
-    function openPortfolioLink(card) {
-        const projectId = card.getAttribute('data-project');
-        // In a real application, you would have actual URLs
-        const projectUrls = {
-            '1': 'https://github.com/jumpincrane/cybertech-dashboard',
-            '2': 'https://github.com/jumpincrane/ai-marketing-platform',
-            '3': 'https://github.com/jumpincrane/blockchain-tracker'
-        };
-        
-        const url = projectUrls[projectId] || '#';
-        if (url !== '#') {
-            window.open(url, '_blank');
-        }
-    }
-
-    // Contact Form Handling
-    function initContactForm() {
-        const contactForm = document.getElementById('contactForm');
-        
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form data
-                const formData = new FormData(this);
-                const formObject = {};
-                formData.forEach((value, key) => {
-                    formObject[key] = value;
-                });
-                
-                // Show loading state
-                const submitBtn = this.querySelector('button[type="submit"]');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wysyłanie...';
-                submitBtn.disabled = true;
-                
-                // Simulate form submission
-                setTimeout(() => {
-                    showNotification('Wiadomość została wysłana pomyślnie!', 'success');
-                    this.reset();
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                }, 1500);
-            });
-        }
-    }
-
-    // Notification System
-    function showNotification(message, type = 'info') {
-        // Remove any existing notifications
-        const existingNotifications = document.querySelectorAll('.notification');
-        existingNotifications.forEach(notif => {
-            document.body.removeChild(notif);
-        });
-        
-        const notification = document.createElement('div');
-        notification.className = `notification notification--${type}`;
-        notification.innerHTML = `
-            <div class="notification-content">
-                <span class="notification-message">${message}</span>
-                <button class="notification-close">&times;</button>
-            </div>
-        `;
-        
-        const notificationStyles = `
-            .notification {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: var(--color-surface-elevated);
-                border: 1px solid var(--color-primary);
-                border-radius: 8px;
-                padding: 1rem;
-                z-index: 10000;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                max-width: 300px;
-            }
-            .notification--success {
-                border-color: var(--color-primary);
-                box-shadow: 0 0 10px rgba(56, 251, 219, 0.3);
-            }
-            .notification-content {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 1rem;
-            }
-            .notification-message {
-                color: var(--color-text);
-                font-size: 0.9rem;
-            }
-            .notification-close {
-                background: none;
-                border: none;
-                color: var(--color-primary);
-                cursor: pointer;
-                font-size: 1.2rem;
-            }
-        `;
-        
-        if (!document.querySelector('#notification-styles')) {
-            const styleSheet = document.createElement('style');
-            styleSheet.id = 'notification-styles';
-            styleSheet.textContent = notificationStyles;
-            document.head.appendChild(styleSheet);
-        }
-        
-        document.body.appendChild(notification);
-        
-        // Show notification with a slight delay
-        setTimeout(() => {
-            notification.style.transform = 'translateX(0)';
-        }, 10);
-        
-        // Auto-hide after 5 seconds
-        const hideTimeout = setTimeout(() => {
-            hideNotification(notification);
-        }, 5000);
-        
-        // Close button functionality
-        const closeBtn = notification.querySelector('.notification-close');
-        closeBtn.addEventListener('click', () => {
-            clearTimeout(hideTimeout);
-            hideNotification(notification);
-        });
-        
-        function hideNotification(notif) {
-            notif.style.transform = 'translateX(100%)';
-            setTimeout(() => {
-                if (document.body.contains(notif)) {
-                    document.body.removeChild(notif);
-                }
-            }, 300);
-        }
-    }
-
-    // Particle Background Animation
-    function initParticleBackground() {
-        const particlesContainer = document.getElementById('particles-background');
-        if (!particlesContainer) return;
-        
-        const particleCount = 30; // Reduced for better performance
-        
-        for (let i = 0; i < particleCount; i++) {
-            createParticle(particlesContainer);
-        }
-    }
-
-    function createParticle(container) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        const size = Math.random() * 3 + 1;
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        const duration = Math.random() * 20 + 10;
-        const delay = Math.random() * 5;
-        
-        particle.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            background: var(--color-primary);
-            border-radius: 50%;
-            left: ${x}px;
-            top: ${y}px;
-            opacity: ${Math.random() * 0.5 + 0.2};
-            animation: float ${duration}s ${delay}s infinite ease-in-out;
-            pointer-events: none;
-        `;
-        
-        container.appendChild(particle);
-        
-        // Add floating animation
-        if (!document.querySelector('#particle-styles')) {
-            const particleStyles = document.createElement('style');
-            particleStyles.id = 'particle-styles';
-            particleStyles.textContent = `
-                @keyframes float {
-                    0%, 100% { transform: translateY(0px) rotate(0deg); }
-                    33% { transform: translateY(-20px) rotate(120deg); }
-                    66% { transform: translateY(20px) rotate(240deg); }
-                }
-                .particle {
-                    box-shadow: 0 0 6px var(--color-glow);
-                }
-            `;
-            document.head.appendChild(particleStyles);
-        }
-    }
-
-    // Fix for sidebar alignment when scrolling
-    function fixSidebarScroll() {
-        const sidebar = document.getElementById('sidebar');
-        if (sidebar) {
-            // Ensure sidebar stays fixed when scrolling
-            sidebar.style.position = 'fixed';
-            sidebar.style.top = '0';
-            sidebar.style.left = '0';
-            sidebar.style.height = '100%';
-            sidebar.style.overflowY = 'auto';
-            sidebar.style.zIndex = '1000';
+  
+    // Scroll animations
+    addScrollAnimations() {
+      // Create custom AOS (Animate On Scroll) implementation
+      const animatedElements = document.querySelectorAll('[data-aos]');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            const animationType = element.getAttribute('data-aos');
+            const delay = element.getAttribute('data-aos-delay') || 0;
             
-            // Prevent body scroll when sidebar is open on mobile
-            const style = document.createElement('style');
-            style.textContent = `
-                body.menu-active {
-                    overflow: hidden;
-                }
-                @media (max-width: 1024px) {
-                    .sidebar.active {
-                        transform: translateX(0);
-                        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-                    }
-                    .mobile-menu-toggle {
-                        display: flex !important;
-                        flex-direction: column;
-                        justify-content: center;
-                        align-items: center;
-                        z-index: 1002;
-                    }
-                    .mobile-menu-toggle span {
-                        display: block;
-                        transition: all 0.3s ease;
-                    }
-                    .mobile-menu-toggle.active {
-                        background: var(--color-primary);
-                    }
-                    .mobile-menu-toggle.active span {
-                        background: var(--color-background);
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        }
+            setTimeout(() => {
+              element.classList.add('aos-animate');
+            }, parseInt(delay));
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+  
+      animatedElements.forEach(element => {
+        observer.observe(element);
+      });
+  
+      // Add CSS for AOS animations
+      this.addAOSStyles();
     }
-    
-    // Call the sidebar fix function
-    fixSidebarScroll();
-    
-    // Performance optimization: Throttle scroll events
-    let ticking = false;
-    
-    function updateOnScroll() {
-        // Add any scroll-based animations here
-        ticking = false;
+  
+    addAOSStyles() {
+      const style = document.createElement('style');
+      style.textContent = `
+        [data-aos] {
+          opacity: 0;
+          transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+  
+        [data-aos="fade-up"] {
+          transform: translateY(30px);
+        }
+  
+        [data-aos="fade-left"] {
+          transform: translateX(-30px);
+        }
+  
+        [data-aos="fade-right"] {
+          transform: translateX(30px);
+        }
+  
+        [data-aos].aos-animate {
+          opacity: 1;
+          transform: translateY(0) translateX(0);
+        }
+      `;
+      document.head.appendChild(style);
     }
-    
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(updateOnScroll);
-            ticking = true;
-        }
+  
+    // Mobile sidebar toggle (for responsive design)
+    toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
     }
+  }
+  
+  // Utility functions
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+  
+  // Global portfolio instance
+  let portfolio;
+  
+  // Initialize portfolio when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    portfolio = new Portfolio();
     
-    window.addEventListener('scroll', requestTick);
-
-    // Keyboard navigation support
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Tab') {
-            document.body.classList.add('keyboard-navigation');
-        }
-    });
+    // Make portfolio globally accessible for onclick handlers
+    window.portfolio = portfolio;
     
-    document.addEventListener('mousedown', function() {
-        document.body.classList.remove('keyboard-navigation');
-    });
-
-    // Add keyboard navigation styles
-    const keyboardStyles = document.createElement('style');
-    keyboardStyles.textContent = `
-        .keyboard-navigation *:focus {
-            outline: 2px solid var(--color-primary);
-            outline-offset: 2px;
-        }
-    `;
-    document.head.appendChild(keyboardStyles);
-
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        // Ensure mobile menu behaves correctly on resize
-        const sidebar = document.getElementById('sidebar');
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        
-        if (window.innerWidth > 1024 && sidebar && mobileMenuToggle) {
-            sidebar.classList.remove('active');
-            mobileMenuToggle.classList.remove('active');
-            document.body.classList.remove('menu-active');
-        }
-    });
-
-    // Initialize any elements that might be added dynamically
-    function initDynamicElements() {
-        // This function can be called if you add DOM elements dynamically
-        initSkillBars();
-        initScrollAnimations();
+    // Add smooth reveal for hero section
+    setTimeout(() => {
+      const homeSection = document.getElementById('home');
+      if (homeSection) {
+        homeSection.classList.add('visible');
+      }
+    }, 500);
+  
+    // Performance optimization - lazy load images if any
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            if (img.dataset.src) {
+              img.src = img.dataset.src;
+              img.classList.remove('lazy');
+              imageObserver.unobserve(img);
+            }
+          }
+        });
+      });
+  
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+      });
     }
-
-    // Console easter egg
-    console.log(`
-    ╔══════════════════════════════════════╗
-    ║  🚀 Cyber Portfolio v2025           ║
-    ║  Built with modern web technologies  ║
-    ║  © 2025 Michał Heit                  ║
-    ╚══════════════════════════════════════╝
-    `);
-});
+  });
+  
+  // Window scroll effects
+  window.addEventListener('scroll', debounce(() => {
+    // Add/remove shadow to sidebar based on scroll
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+      if (window.scrollY > 100) {
+        sidebar.style.boxShadow = '4px 0 20px rgba(0, 0, 0, 0.3)';
+      } else {
+        sidebar.style.boxShadow = '';
+      }
+    }
+  }, 10));
+  
+  // Handle window resize
+  window.addEventListener('resize', debounce(() => {
+    // Close sidebar on desktop if it was opened on mobile
+    if (window.innerWidth > 768) {
+      const sidebar = document.getElementById('sidebar');
+      if (sidebar) {
+        sidebar.classList.remove('open');
+      }
+    }
+  }, 250));

@@ -10,19 +10,48 @@ const portfolioData = {
     projects: [
       {
         id: 1,
-        title: "Predykcyjny model sprzedaży",
-        description: "System predykcji sprzedaży wykorzystujący ensemble metody uczenia maszynowego. Zwiększenie dokładności prognoz o 35%.",
-        fullDescription: "Zaawansowany system predykcji sprzedaży wykorzystujący algorytmy uczenia maszynowego typu ensemble. Projekt obejmuje zbieranie danych z różnych źródeł, preprocessing, feature engineering i deployment modelu w chmurze AWS. Osiągnięta dokładność predykcji wynosi 95% na zbiorze testowym, co przyczyniło się do zwiększenia efektywności biznesowej o 35%.",
-        technologies: ["Python", "TensorFlow", "XGBoost"],
-        github: "https://github.com/jankowalski/sales-prediction"
+        title: "Hyperpersonalization Recommendation Engine",
+        description: `<strong>Completed: December 2023</strong><br>
+                      An engine using deep learning to segment customers, deliver personalized offers and ad campaigns per segment based on Cialdini’s social-influence principles, and predict churn while forecasting customer journeys. It empowers marketing teams to optimize campaigns with actionable, data-driven insights at scale.`,
+        fullDescription: `The Hyperpersonalization Recommendation Engine leverages deep learning models to automatically segment customers by behavior and preferences, 
+                          deliver tailored offers and propose ads for each segment based on specific social-influence principles outlined by Cialdini, predict churn risks
+                          and forecast customer journeys influenced by social dynamics - all through a single, intuitive interface.
+                          Developed over twelve months with NCBR funding and now successfully completed, the project overcame challenges such as preserving user anonymity across data pipelines,
+                          operating within a limited set of algorithmic choices, optimizing performance on large-scale datasets, maintaining consistency across diverse machine-learning frameworks
+                          and handling sparse or incomplete data. By transforming raw customer information into actionable insights, this solution empowers marketing professionals to design
+                          and execute more effective, data-driven campaigns at scale.<br><br>
+                          <strong>Key Responsibilities</strong>:<br>
+                          - implementing deep-learning methods, models and algorithms,<br>
+                          - developing the overall system architecture,<br>
+                          - allocating tasks across the team and monitoring progress,<br>
+                          - designing the end-to-end data-flow concepts,<br>
+                          - leading the project team and coordinating stakeholders,<br>
+                          - defining software production and deployment processes,<br>
+                          - selecting and integrating the optimal tools and frameworks,<br>
+                          - conducting hands-on research to validate and refine methods.`,
+        technologies: ["Python", "PyTorch", "MLflow", "HuggingFace", "Azure/Databricks", "Spark", "Pandas", "Git", "Azure Devops"],
+        github: "https://github.com/jumpincrane/"
       },
       {
         id: 2,
-        title: "System rekomendacji",
-        description: "Zaawansowany system rekomendacji produktów oparty na collaborative filtering i deep learning.",
-        fullDescription: "Kompleksowy system rekomendacji wykorzystujący techniki collaborative filtering i deep learning do generowania personalizowanych rekomendacji produktów. System przetwarza dane użytkowników w czasie rzeczywistym i dostosowuje rekomendacje na podstawie zachowań i preferencji. Implementacja obejmuje modele hybrydowe łączące różne podejścia do rekomendacji.",
-        technologies: ["PyTorch", "Redis", "FastAPI"],
-        github: "https://github.com/jankowalski/recommendation-system"
+        title: "Industrial Operations Intelligence Engine",
+        description: `<strong>Completed: September 2022</strong><br>
+                      The platform ingests data from external sources to generate comprehensive factory reports, featuring a deep-learning anomaly detection module,
+                      an autoregressive time-series forecasting engine and a heuristic algorithm - driven warehouse & inventory optimizer - all through an intuitive interface.`,
+        fullDescription: `This is a modular system designed to support data-driven decision-making in industrial environments.
+                          It collects and processes data from external sources through a unified pipeline that includes data cleaning, normalization and feature extraction.
+                          Anomaly detection is performed using deep learning models trained to recognize typical operational patterns and identify deviations that may indicate equipment faults or process instabilities.
+                          Time-series forecasting is based on autoregressive and deep learning models that combine both internal measurements and additional influencing factors,
+                          enabling the prediction of selected production metrics over multiple time steps. The warehouse and inventory optimization module applies heuristic algorithms to determine effective stock levels,
+                          replenishment schedules and storage configurations, supporting cost-efficient logistics management. The platform provides configurable, exportable reports summarizing key metrics,
+                          detected anomalies and forecast results, making it suitable for continuous monitoring, model refinement and operational analysis in manufacturing contexts.<br><br>
+                          <strong>Key Responsibilities</strong>:<br>
+                          - implementing methods, models and algorithms,<br>
+                          - writing technical documentation and milestone reports,<br>
+                          - conducting model research and testing,<br>
+                          - refactoring repository structure and improving code.`,
+        technologies: ["Python", "PyTorch", "MLflow", "Azure ML", "Jax", "XGBoost", "Git", "Pandas"],
+        github: "https://github.com/jumpincrane/"
       },
       {
         id: 3,
@@ -30,7 +59,7 @@ const portfolioData = {
         description: "Model NLP do analizy sentymentu opinii klientów z wykorzystaniem transformerów.",
         fullDescription: "Zaawansowany model NLP wykorzystujący transformery (BERT) do analizy sentymentu opinii klientów. System przetwarza teksty w czasie rzeczywistym, klasyfikuje sentyment i identyfikuje kluczowe tematy. Implementacja obejmuje fine-tuning modeli pre-trained na specyficznych danych biznesowych, co pozwoliło osiągnąć dokładność 94%.",
         technologies: ["BERT", "Hugging Face", "Docker"],
-        github: "https://github.com/jankowalski/sentiment-analysis"
+        github: "https://github.com/jumpincrane/sentiment-analysis"
       }
     ],
     about: "Jestem doświadczonym specjalistą AI/ML z pasją do rozwiązywania złożonych problemów biznesowych za pomocą uczenia maszynowego. Specjalizuję się w deep learning, NLP i computer vision. W wolnym czasie eksperymentuję z najnowszymi technikami ML i uczestniczę w projektach open source.",
@@ -331,7 +360,7 @@ const portfolioData = {
       if (!modal || !title || !description || !technologies || !githubLink) return;
   
       title.textContent = project.title;
-      description.textContent = project.fullDescription;
+      description.innerHTML = project.fullDescription;
       technologies.innerHTML = project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
       githubLink.href = project.github;
   

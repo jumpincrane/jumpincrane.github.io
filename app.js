@@ -445,33 +445,39 @@ const portfolioData = {
       }
     }
   
-    handleContactSubmit(form) {
-      const formData = new FormData(form);
-      const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        message: formData.get('message')
-      };
+    // handleContactSubmit(form) {
+    //   const formData = new FormData(form);
+    //   const data = {
+    //     name: formData.get('name'),
+    //     email: formData.get('email'),
+    //     message: formData.get('message'),
+    //     time: new Date().toISOString()
+    //   };
   
-      // Simulate form submission
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
+    //   // Simulate form submission
+    //   const submitBtn = form.querySelector('button[type="submit"]');
+    //   const originalText = submitBtn.textContent;
       
-      submitBtn.textContent = 'Wysyłanie...';
-      submitBtn.disabled = true;
+    //   submitBtn.textContent = 'Wysyłanie...';
+    //   submitBtn.disabled = true;
   
-      setTimeout(() => {
-        submitBtn.textContent = 'Wiadomość wysłana!';
-        submitBtn.style.background = 'var(--color-ai-green)';
-        
-        setTimeout(() => {
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-          submitBtn.style.background = '';
-          form.reset();
-        }, 3000);
-      }, 1500);
-    }
+    //   emailjs.send("SSS","SSS", data)
+    //   .then(() => {
+    //     submitBtn.textContent = 'Wiadomość wysłana!';
+    //     submitBtn.style.background = 'var(--color-ai-green)';
+    //     form.reset();S
+    //     setTimeout(() => {
+    //       submitBtn.textContent = originalText;
+    //       submitBtn.disabled = false;
+    //       submitBtn.style.background = '';
+    //     }, 20);
+    //   }, (error) => {
+    //     alert('Wystąpił błąd przy wysyłaniu: ' + error.text);
+    //     submitBtn.textContent = originalText;
+    //     submitBtn.disabled = false;
+    //     submitBtn.style.background = '';
+    //   });
+    // }
   
     // Scroll animations
     addScrollAnimations() {

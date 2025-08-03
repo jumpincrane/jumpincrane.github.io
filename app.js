@@ -34,6 +34,25 @@ const portfolioData = {
       },
       {
         id: 2,
+        title: "Intelligent Culinary Planner",
+        description: `<strong>Completed: December 2022</strong><br>
+                      Discover personalized recipe suggestions based on your cooking history and the latest food trends. The Culinary Planner automatically tags dishes including through image
+                      analysis, organizes users into taste profiles, and delivers dynamic recommendations to delight every palate.`,
+        fullDescription: `This planner translates raw user interactions and evolving culinary trends into tailored recipe recommendations. First, it normalizes per-user tag distributions
+                          (cuisine, meal type, dietary preferences, occasions) and computes a user-user similarity matrix for fuzzy clustering into taste groups. Next, it builds user×tag
+                          and ingredient correlation matrices, filters by popularity, and applies Louvain community detection to extract representative ingredient tags. A dedicated “propose tags” module leverages SpaCy's
+                          language model to map browsing history keywords to recipe tags and suggest new annotations for text and images. Finally, hot-topic detection, link-prediction and multi-factor recommendation components
+                          combine persona profiles and global trends to surface the most relevant recipes. Throughout, the system supports configurable parameters, reproducible report exports and iterative model refinement.<br><br>
+                          <strong>Key Responsibilities</strong>:<br>
+                          - implementing methods, models and algorithms,<br>
+                          - meetings with stakeholders,<br>
+                          - writing technical documentation,<br>
+                          - co-leading project.`,
+        technologies: ["Python", "PyTorch", "Azure ML", "Pandas", "Plotly", "Neo4j", "Numpy", "Git", "Scikit-learn", "Spacy"],
+        github: "https://github.com/jumpincrane/"
+      },
+      {
+        id: 3,
         title: "Industrial Operations Intelligence Engine",
         description: `<strong>Completed: September 2022</strong><br>
                       The platform ingests data from external sources to generate comprehensive factory reports, featuring a deep-learning anomaly detection module,
@@ -52,18 +71,21 @@ const portfolioData = {
                           - refactoring repository structure and improving code.`,
         technologies: ["Python", "PyTorch", "MLflow", "Azure ML", "Jax", "XGBoost", "Git", "Pandas"],
         github: "https://github.com/jumpincrane/"
-      },
-      {
-        id: 3,
-        title: "Analiza sentymentu",
-        description: "Model NLP do analizy sentymentu opinii klientów z wykorzystaniem transformerów.",
-        fullDescription: "Zaawansowany model NLP wykorzystujący transformery (BERT) do analizy sentymentu opinii klientów. System przetwarza teksty w czasie rzeczywistym, klasyfikuje sentyment i identyfikuje kluczowe tematy. Implementacja obejmuje fine-tuning modeli pre-trained na specyficznych danych biznesowych, co pozwoliło osiągnąć dokładność 94%.",
-        technologies: ["BERT", "Hugging Face", "Docker"],
-        github: "https://github.com/jumpincrane/sentiment-analysis"
       }
     ],
     about: "Jestem doświadczonym specjalistą AI/ML z pasją do rozwiązywania złożonych problemów biznesowych za pomocą uczenia maszynowego. Specjalizuję się w deep learning, NLP i computer vision. W wolnym czasie eksperymentuję z najnowszymi technikami ML i uczestniczę w projektach open source.",
     experience: [
+      {
+        position: "Senior Data Scientist",
+        company: "SoftwareOne",
+        period: "12/2024 - now",
+        description: `- Built RAG-based chatbots using Azure OpenAI, LangGraph, and Azure Search.<br>
+                      - Developed AI system for reading analog and digital energy meters using OCR, computer vision and LLMs.<br>
+                      - Designed clear UX flows and image validation steps for AI-powered applications.<br>
+                      - Led client-facing delivery with a focus on value, clarity, and long-term reliability.<br>
+                      - Delivered 4 PoC-to-production AI projects with 100% adoption and business impact.`,
+        type: "work"
+      },
       {
         position: "ML Engineer",
         company: "TIDK",
@@ -106,9 +128,10 @@ const portfolioData = {
       ml_and_ai: ["PyTorch", "Scikit-learn", "XGBoost", "MLflow", "LangChain", "LangGraph", "LangSmith"],
       cloud_and_infrastructure: ["Azure ML", "Azure AI Services", "Azure Function/Web App", "Azure Data Factory", "Databricks", "Docker"],
       data_engineering: ["Pandas", "NumPy", "Apache Spark"],
-      software_development: ["Python", "C++", "PyTest", "FastAPI", "Git", "Azure Repos"],
+      software_development: ["Python", "C++", "PyTest", "FastAPI", "Git", "Azure DevOps", "Streamlit"],
       databases: ["MS SQL", "Redis", "Neo4j", "Azure Data Lake Storage"],
-      tools: ["Jupyter Notebook", "Plotly", "Unix-like OS", "VS Code"]
+      tools: ["Jupyter Notebook", "Plotly", "Unix-like OS", "VS Code"],
+      certs: ["AI-102"]
     },
     contact: {
       email: "michal.heit.contact@gmail.com",
@@ -298,7 +321,8 @@ const portfolioData = {
         { title: 'Data Engineering', items: portfolioData.techStack.data_engineering },
         { title: 'Software Development', items: portfolioData.techStack.software_development },
         { title: 'Databases', items: portfolioData.techStack.databases },
-        { title: 'Development Tools', items: portfolioData.techStack.tools }
+        { title: 'Development Tools', items: portfolioData.techStack.tools },
+        { title: 'Certifications', items: portfolioData.techStack.certs }
       ];
   
       const techStackHTML = categories.map((category, index) => `

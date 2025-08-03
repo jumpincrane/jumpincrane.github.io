@@ -804,22 +804,29 @@ body {
 }
 
 .profile-avatar {
-  margin-bottom: 1rem;
-}
-
-.avatar-placeholder {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-ai-blue), var(--color-ai-purple));
+  width: 65%;                   /* 3/4 szerokości sidebaru */
+  aspect-ratio: 1 / 1;          /* kwadrat */
+  margin: 0 auto 28px auto;     /* wyśrodkowanie */
+  border-radius: 18px;          /* delikatnie zaokrąglone rogi */
+  box-shadow:
+    0 0 0 4px #191d24,         /* wewnętrzny cień (kolor tła sidebaru) */
+    0 0 24px 6px #4a90e280,    /* niebieska poświata (glow) */
+    0 8px 28px 0 #0005;        /* miękki cień na dole */
+  background: #242a35;         /* ciemnoszare tło pod spodem */
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  font-weight: 600;
-  color: white;
-  margin: 0 auto;
-  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+  transition: box-shadow 0.25s;
+  margin-bottom: 2rem;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
 }
 
 .profile-name {
